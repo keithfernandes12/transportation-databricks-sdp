@@ -1,4 +1,4 @@
-# Goodcabs Databricks SDP
+# Transportation Databricks SDP
 
 An end-to-end **medallion (bronze -> silver -> gold)** data pipeline built with **Databricks Lakeflow Spark Declarative Pipelines (SDP)** and **PySpark**, modeling ride-trip data for *Goodcabs*, a cab service operating across ten tier-2 Indian cities.
 
