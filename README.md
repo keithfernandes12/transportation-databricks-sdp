@@ -1,6 +1,6 @@
-# Goodcabs: Transportation Data Engineering Pipeline
+# Goodcabs Databricks SDP
 
-An end-to-end **medallion (bronze → silver → gold)** data pipeline built on **Databricks** and **PySpark**, modeling ride-trip data for *Goodcabs*, a cab service operating across ten tier-2 Indian cities.
+An end-to-end **medallion (bronze -> silver -> gold)** data pipeline built with **Databricks Lakeflow Spark Declarative Pipelines (SDP)** and **PySpark**, modeling ride-trip data for *Goodcabs*, a cab service operating across ten tier-2 Indian cities.
 
 The pipeline ingests raw city and trip data from cloud storage, cleans and validates it, and serves analytics-ready fact views, including per-city breakouts for downstream reporting.
 
