@@ -1,8 +1,8 @@
-# Goodcabs — Transportation Data Engineering Pipeline
+# Goodcabs: Transportation Data Engineering Pipeline
 
 An end-to-end **medallion (bronze → silver → gold)** data pipeline built on **Databricks** and **PySpark**, modeling ride-trip data for *Goodcabs*, a cab service operating across ten tier-2 Indian cities.
 
-The pipeline ingests raw city and trip data from cloud storage, cleans and validates it, and serves analytics-ready fact views — including per-city breakouts for downstream reporting.
+The pipeline ingests raw city and trip data from cloud storage, cleans and validates it, and serves analytics-ready fact views, including per-city breakouts for downstream reporting.
 
 ## Architecture
 
@@ -36,17 +36,20 @@ Data flows through three layers following the medallion pattern:
 ## Pipeline Details
 
 ### Bronze
-- **`city.py`** — Batch-reads the city dimension CSV into a materialized view, adding `file_name` and `ingest_datetime` lineage columns.
-- **`trips.py`** — Streams daily trip CSV exports with **Auto Loader** (`cloudFiles`), using rescue-mode schema evolution and renaming the problematic `distance_travelled(km)` header.
+
+- **`city.py`**: Batch-reads the city dimension CSV into a materialized view, adding `file_name` and `ingest_datetime` lineage columns.
+- **`trips.py`**: Streams daily trip CSV exports with **Auto Loader** (`cloudFiles`), using rescue-mode schema evolution and renaming the problematic `distance_travelled(km)` header.
 
 ### Silver
-- **`city.py`** — Standardizes the city dimension and carries ingest timestamps forward.
-- **`calendar.py`** — Generates a full calendar dimension (year/month/quarter, weekday/weekend flags, ISO week, and Indian national holidays) over a configurable date range.
-- **`trips.py`** — Applies data-quality **expectations** (valid date, driver/passenger rating bounds), renames columns to business-friendly names, and performs an **SCD Type 1 CDC upsert** into a streaming table keyed on `trip_id`.
+
+- **`city.py`**: Standardizes the city dimension and carries ingest timestamps forward.
+- **`calendar.py`**: Generates a full calendar dimension (year/month/quarter, weekday/weekend flags, ISO week, and Indian national holidays) over a configurable date range.
+- **`trips.py`**: Applies data-quality **expectations** (valid date, driver/passenger rating bounds), renames columns to business-friendly names, and performs an **SCD Type 1 CDC upsert** into a streaming table keyed on `trip_id`.
 
 ### Gold
-- **`trips_gold.sql`** — `fact_trips` view joining trips to the city and calendar dimensions (star schema).
-- **`trips_<city>.sql`** — Ten per-city fact views (Chandigarh, Coimbatore, Indore, Jaipur, Kochi, Lucknow, Mysore, Surat, Vadodara, Visakhapatnam) for city-level reporting.
+
+- **`trips_gold.sql`**: `fact_trips` view joining trips to the city and calendar dimensions (star schema).
+- **`trips_<city>.sql`**: Ten per-city fact views (Chandigarh, Coimbatore, Indore, Jaipur, Kochi, Lucknow, Mysore, Surat, Vadodara, Visakhapatnam) for city-level reporting.
 
 ## Tech Stack
 
@@ -58,7 +61,7 @@ Data flows through three layers following the medallion pattern:
 ## Getting Started
 
 1. Run `project_setup.py` in Databricks to create the `transportation` catalog and the `bronze` / `silver` / `gold` schemas.
-2. Upload the source data (or point `SOURCE_PATH` at your own cloud storage — the bronze scripts reference an S3 path).
+2. Upload the source data (or point `SOURCE_PATH` at your own cloud storage; the bronze scripts reference an S3 path).
 3. Build the DLT pipeline from the `2. code/bronze` and `2. code/silver` scripts, passing `start_date` / `end_date` config for the calendar.
 4. Create the gold-layer views from the SQL in `2. code/gold`.
 
