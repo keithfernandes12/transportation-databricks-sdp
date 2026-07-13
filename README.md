@@ -8,7 +8,6 @@ The pipeline ingests raw city and trip data from cloud storage, cleans and valid
 
 ![Architecture](3.%20architecture/transportation-databricks-architecture.png)
 
-> Diagram source: [`transportation-databricks-sdp-architecture.excalidraw`](3.%20architecture/transportation-databricks-sdp-architecture.excalidraw) (also exported as [SVG](3.%20architecture/transportation-databricks-sdp-architecture.svg)) — open and edit at [excalidraw.com](https://excalidraw.com) or with the VS Code Excalidraw extension.
 
 ### Pipeline DAG
 

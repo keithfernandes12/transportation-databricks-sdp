@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Databricks
+.databricks/
+
+# Architecture (keep editable source + PNG exports, not SVG)
+*.svg
+
+# Git
+.gitignore
