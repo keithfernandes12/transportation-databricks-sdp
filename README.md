@@ -6,7 +6,15 @@ The pipeline ingests raw city and trip data from cloud storage, cleans and valid
 
 ## Architecture
 
-![Architecture](3.%20architecture/architecture.png)
+![Architecture](3.%20architecture/transportation-databricks-architecture.png)
+
+> Diagram source: [`transportation-databricks-sdp-architecture.excalidraw`](3.%20architecture/transportation-databricks-sdp-architecture.excalidraw) (also exported as [SVG](3.%20architecture/transportation-databricks-sdp-architecture.svg)) — open and edit at [excalidraw.com](https://excalidraw.com) or with the VS Code Excalidraw extension.
+
+### Pipeline DAG
+
+The resolved Lakeflow SDP graph: bronze `city` / `trips` feed the silver layer (`city`, `calendar`, and `trips` via the `trips_silver_staging` CDC flow), which the `fact_trips` star-schema view joins before fanning out into the ten per-city views.
+
+![Pipeline DAG](3.%20architecture/transportation-databricks-pipeline.png)
 
 Data flows through three layers following the medallion pattern:
 
@@ -30,7 +38,7 @@ Data flows through three layers following the medallion pattern:
 │   ├── bronze/                 # Raw ingestion (city.py, trips.py)
 │   ├── silver/                 # Cleaning, validation, CDC (city, trips, calendar)
 │   └── gold/                   # Fact views (trips_gold.sql + per-city views)
-└── 3. architecture/            # Architecture diagram
+└── 3. architecture/            # Architecture diagram, pipeline DAG, and editable source
 ```
 
 ## Pipeline Details
